@@ -1,7 +1,10 @@
 # CouchDB URL
 couchdb_url: "http://192.168.1.9:5984/"
-
 microposts_db: "microposts"
 
-# The CF uper provided service
-couchdb_ups: "couchdb-dev"
+# CF user provided service for obtaining CouchDB credentials
+# Overrides previous settings when running in CF
+# cf create-user-provided-service couchdb -p '{ "url": "http://192.168.1.9:5984/", "db": "microposts", "tag": "couchdb" }'
+# cf bind-service rails-sample couchdb
+# cf push
+couchdb_ups: "couchdb"

@@ -1,0 +1,5 @@
+# CouchDB URL
+couchdb_url: "http://127.0.0.1:5984/"
+
+microposts_db: "microposts"
+

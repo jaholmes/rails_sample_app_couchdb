@@ -2,9 +2,11 @@
 
 This is the sample application for [*Ruby on Rails Tutorial: Learn Rails by Example*](http://railstutorial.org/) by [Michael Hartl](http://michaelhartl.com/).
 
-This sample has been modified to run on Cloud Foundry. The `cf-autoconfig` gem was added to enable auto-configuration of database connections as described in the [Cloud Foundry documentation](http://docs.cloudfoundry.com/docs/using/services/ruby-service-bindings.html). The `pg` gem was also added to support connection to PostgreSQL database. 
+This sample has been modified to run on Cloud Foundry. The `cf-autoconfig` gem was added to enable auto-configuration of database connections as described in the [Cloud Foundry documentation](http://docs.cloudfoundry.com/docs/using/services/ruby-service-bindings.html). The `sql2` gem was also added to support connection to MySql database. 
 
 The CF version was *Hijacked* to show use of [user provided services](http://docs.cloudfoundry.org/devguide/services/user-provided.html) with [CouchDB](http://couchdb.apache.org/). The home page of the user writes posts to CouchDB, and displays the raw json of previous posts. No attempt has been made beyond that to replace use of SQL database.
+
+It's based on [this CF sample](https://github.com/cloudfoundry-samples/rails_sample_app).
 
 ## CouchDB setup
 * install CouchDB and setup [httpd bind address](http://docs.couchdb.org/en/latest/config/http.html#httpd/bind_address) so that it's accessible from CF (i.e. don't use 127.0.0.1)

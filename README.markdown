@@ -4,6 +4,27 @@ This is the sample application for [*Ruby on Rails Tutorial: Learn Rails by Exam
 
 This sample has been modified to run on Cloud Foundry. The `cf-autoconfig` gem was added to enable auto-configuration of database connections as described in the [Cloud Foundry documentation](http://docs.cloudfoundry.com/docs/using/services/ruby-service-bindings.html). The `pg` gem was also added to support connection to PostgreSQL database. 
 
+The CF version was *Hijacked* to show use of [user provided services](http://docs.cloudfoundry.org/devguide/services/user-provided.html) with [CouchDB](http://couchdb.apache.org/). The home page of the user writes posts to CouchDB, and displays the raw json of previous posts. No attempt has been made beyond that to replace use of SQL database.
+
+## CouchDB setup
+* install CouchDB and setup [httpd bind address](http://docs.couchdb.org/en/latest/config/http.html#httpd/bind_address) so that it's accessible from CF (i.e. don't use 127.0.0.1)
+* Create the 'microposts' database
+* Create the following design document
+~~~ 
+{
+   "_id": "_design/posts",
+   "language": "javascript",
+   "views": {
+       "all": {
+           "map": "function(doc) { emit(null, { 'id': doc._id, 'user_id': doc.user_id, 'content': doc.content }); }"
+       },
+       "byuser": {
+           "map": "function(doc) { emit(doc.user_id, { 'user_id': doc.user_id, 'content': doc.content }); }"
+       }
+   }
+}
+~~~
+
 ## Running the application on Cloud Foundry
 
 After installing in the 'cf' [command-line interface for Cloud Foundry](http://docs.cloudfoundry.org/devguide/installcf/),
@@ -17,35 +38,29 @@ Getting services from marketplace
 OK
 
 service          plans                                                                 description
-blazemeter       free-tier, basic1kmr, pro5kmr, pp10kmr, hv40kmr                       The JMeter Load Testing Cloud
-cleardb          spark, boost, amp, shock                                              Highly available MySQL for your Apps.
-cloudamqp        lemur, tiger, bunny, rabbit, panda                                    Managed HA RabbitMQ servers in the cloud
-cloudforge       free, standard, pro                                                   Development Tools In The Cloud
-elephantsql      turtle, panda, hippo, elephant                                        PostgreSQL as a Service
-ironmq           pro_platinum, pro_gold, large, medium, small, pro_silver              Powerful Durable Message Queueing Service
-ironworker       large, pro_gold, pro_platinum, pro_silver, small, medium              Scalable Background and Async Processing
-loadimpact       lifree, li100, li500, li1000                                          Automated and on-demand performance testing
-memcachedcloud   25mb, 100mb, 250mb, 500mb, 1gb, 2-5gb, 5gb                            Enterprise-Class Memcached for Developers
-mongolab         sandbox                                                               Fully-managed MongoDB-as-a-Service
-newrelic         standard                                                              Manage and monitor your apps
-rediscloud       25mb, 100mb, 250mb, 500mb, 1gb, 2-5gb, 5gb, 10gb, 50gb                Enterprise-Class Redis for Developers
-searchify        small, plus, pro                                                      Custom search you control
-searchly         small, micro, professional, advanced, starter, business, enterprise   Search Made Simple. Powered-by ElasticSearch
-sendgrid         free, bronze, silver, gold, platinum                                  Email Delivery. Simplified.
+mongodb      default     MongoDB NoSQL database   
+p-mysql      100mb-dev   A MySQL service for application development and testing   
+postgresql   default     PostgreSQL database   
+rabbitmq     default     RabbitMQ message queue   
+redis        default     Redis key-value store  
 ~~~
 
-Choose a PostgreSQL service from the list and create a service instance named `rails-postgres` using a PostgreSQL service and plan: 
+Create a service instance named `mysql` using a MySql service and plan: 
 
 ~~~
-$ cf create-service SERVICE PLAN rails-postgres
-Creating service rails-postgres
-OK
+$ cf create-service p-mysql 100mb-dev mysql
+~~~
+
+Create the user provided service for CouchDB:
+
+~~~
+$ cf create-user-provided-service couchdb -p '{ "url": "http://<couchdb ip/host>:5984/", "db": "microposts", "tag": "couchdb" }'
 ~~~
 
 Now push the application: 
 
 ~~~
-$ cf push APP-NAME --random-route
+$ cf push
 Using manifest file manifest.yml
 
 Updating app rails-sample

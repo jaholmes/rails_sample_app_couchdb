@@ -1,10 +1,10 @@
-# Ruby on Rails Tutorial: sample application - Hijacked to show user provided service on CF with CouchDB!
+# Ruby on Rails Tutorial: sample application - CF version showing user provided service on CF with CouchDB!
 
-This is the sample application for [*Ruby on Rails Tutorial: Learn Rails by Example*](http://railstutorial.org/) by [Michael Hartl](http://michaelhartl.com/).
+This is Cloud Foundry version of Rails sample application for [*Ruby on Rails Tutorial: Learn Rails by Example*](http://railstutorial.org/) by [Michael Hartl](http://michaelhartl.com/).
 
-This sample has been modified to run on Cloud Foundry. The `cf-autoconfig` gem was added to enable auto-configuration of database connections as described in the [Cloud Foundry documentation](http://docs.cloudfoundry.com/docs/using/services/ruby-service-bindings.html). The `sql2` gem was also added to support connection to MySql database. 
+The [original CF version](https://github.com/cloudfoundry-samples/rails_sample_app) was *Hijacked* to show use of [user provided services](http://docs.cloudfoundry.org/devguide/services/user-provided.html) with [CouchDB](http://couchdb.apache.org/). The home page of the user writes posts to CouchDB, and displays the raw json of previous posts. No attempt has been made beyond that to replace use of SQL database.
 
-The [CF version](https://github.com/cloudfoundry-samples/rails_sample_app) was *Hijacked* to show use of [user provided services](http://docs.cloudfoundry.org/devguide/services/user-provided.html) with [CouchDB](http://couchdb.apache.org/). The home page of the user writes posts to CouchDB, and displays the raw json of previous posts. No attempt has been made beyond that to replace use of SQL database.
+The `sql2` gem was also added to support connection to MySql database. 
 
 ## CouchDB setup
 * install CouchDB and setup [httpd bind address](http://docs.couchdb.org/en/latest/config/http.html#httpd/bind_address) so that it's accessible from CF (i.e. don't use 127.0.0.1)

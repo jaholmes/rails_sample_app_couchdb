@@ -10,8 +10,9 @@ gem 'gravatar_image_tag', '1.0.0.pre2'
 gem 'will_paginate', '3.0.0'
 #gem 'will_paginate', '3.0.pre2'
 gem 'sqlite3', '1.3.8'
-gem "pg", "~> 0.15.1"
-gem "cf-autoconfig", "~> 0.2.1"
+#gem "pg", "~> 0.15.1"
+gem "mysql2"
+gem 'cf-autoconfig', "~> 0.2.1"
 gem 'rails_12factor', group: :production
 gem 'cf-app-utils'
 

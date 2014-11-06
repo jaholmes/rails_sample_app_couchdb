@@ -6,5 +6,5 @@ applications:
   path: .
   command: bundle exec rake db:migrate && bundle exec rails s -p $PORT
   services:
-    - postgresql-dev
     - couchdb
+    - mysql

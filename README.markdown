@@ -61,47 +61,43 @@ Now push the application:
 
 ~~~
 $ cf push
-Using manifest file manifest.yml
+Using manifest file /Users/jeff/t/rails_sample_app_couchdb/manifest.yml
 
-Updating app rails-sample
+Creating app rails-sample in org org1 / space dev as admin...
 OK
 
-Creating route rails-sample-desiccative-acetylizer.cfapps.io...
-OK
-
-Binding rails-sample-desiccative-acetylizer.cfapps.io to rails-sample...
+Using route rails-sample.10.244.0.34.xip.io
+Binding rails-sample.10.244.0.34.xip.io to rails-sample...
 OK
 
 Uploading rails-sample...
-Uploading app files from: rails_sample_app
-Uploading 41.1M, 6349 files
+Uploading app files from: /Users/jeff/t/rails_sample_app_couchdb
+Uploading 448.9K, 221 files
 OK
-Binding service rails-postgres to app rails-sample
+Binding service couchdb to app rails-sample in org org1 / space dev as admin...
+OK
+Binding service mysql to app rails-sample in org org1 / space dev as admin...
 OK
 
-Starting app rails-sample
+Starting app rails-sample in org org1 / space dev as admin...
 OK
 ...
 
-0 of 1 instances running, 1 starting
-0 of 1 instances running, 1 starting
 0 of 1 instances running, 1 starting
 1 of 1 instances running
 
 App started
 
-Showing health and status for app rails-sample
+Showing health and status for app rails-sample in org org1 / space dev as admin...
 OK
 
 requested state: started
 instances: 1/1
 usage: 256M x 1 instances
-urls: rails-sample-desiccative-acetylizer.cfapps.io
+urls: rails-sample.10.244.0.34.xip.io
 
-     state     since                    cpu    memory          disk
-#0   running   2014-05-29 03:34:22 PM   0.0%   50.3M of 256M   80.2M of 1G
+     state     since                    cpu    memory          disk   
+#0   running   2014-11-05 05:21:48 PM   0.0%   56.3M of 256M   0 of 1G  
 ~~~
 
-The application will be pushed using settings in the provided `manifest.yml` file. The `--random-route` option adds random
-words in the host to make sure the URL for the app is unique in the Cloud Foundry environment. The output of the
-`cf push` command shows the URL that was assigned. Using the provided URL you can browse to the running application.
+Sign up, and go to the Home page where you can submit posts that are written to the CouchDB service, and the posts you have written are displayed.

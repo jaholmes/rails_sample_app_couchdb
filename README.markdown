@@ -101,3 +101,9 @@ urls: rails-sample.10.244.0.34.xip.io
 ~~~
 
 Sign up, and go to the Home page where you can submit posts that are written to the CouchDB service, and the posts you have written are displayed.
+
+Ruby files containing CF specific code to parse user provided service and read/write CouchDB data
+* [cf_util.rb](lib/cf_util.rb)
+* [doc_db.rb](lib/doc_db.rb)
+* [micropost_doc.rb](app/models/micropost_doc.rb)
+
